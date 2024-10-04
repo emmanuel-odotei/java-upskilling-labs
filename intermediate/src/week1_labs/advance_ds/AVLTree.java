@@ -3,7 +3,7 @@ package intermediate.src.week1_labs.advance_ds;
 
 
 public class AVLTree {
-    static class AVLNode {
+    public static class AVLNode {
         int data;
         AVLNode left;
         AVLNode right;
@@ -223,30 +223,29 @@ public class AVLTree {
     }
     
     public static void main(String[] args) {
-        AVLTree tree = new AVLTree();
+        AVLTree avlTree = new AVLTree();
         
-        tree.insert(10);
-        tree.insert(20);
-        tree.insert(30);
-        tree.insert(40);
-        tree.insert(50);
-        tree.insert(25);
+        avlTree.insert(10);
+        avlTree.insert(20);
+        avlTree.insert(30);
+        avlTree.insert(40);
+        avlTree.insert(50);
+        avlTree.insert(25);
         
-        tree.printInOrder();
+        System.out.println("Inorder traversal after insertion:");
+        avlTree.printInOrder(); // Output: 10 20 25 30 40 50
         
-        if (tree.search(25)) {
-            System.out.println("Found");
-        } else {
-            System.out.println("Not Found");
-        }
+        // Deletion
+        avlTree.delete(10);
+        System.out.println("Inorder traversal after deletion of 10:");
+        avlTree.printInOrder(); // Output: 20 25 30 40 50
         
-        tree.delete(20);
-        tree.printInOrder();
+        avlTree.delete(30);
+        System.out.println("Inorder traversal after deletion of 30:");
+        avlTree.printInOrder(); // Output: 20 25 40 50
         
-        if (tree.search(20)) {
-            System.out.println("Found");
-        } else {
-            System.out.println("Not Found");
-        }
+        // Searching
+        System.out.println("Searching for 25: " + avlTree.search(25)); // Output: true
+        System.out.println("Searching for 100: " + avlTree.search(100)); // Output: false
     }
 }
