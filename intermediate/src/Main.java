@@ -1,4 +1,4 @@
-package intermediate.src.week1_labs;
+package intermediate.src;
 
 public class Main {
 
