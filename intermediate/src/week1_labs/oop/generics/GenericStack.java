@@ -21,7 +21,7 @@ public class GenericStack<T> {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        return elements.removeLast();
+        return elements.remove(elements.size()-1);
     }
     
     // Peeks at the top element without removing it
@@ -29,7 +29,7 @@ public class GenericStack<T> {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        return elements.getLast();
+        return elements.get(elements.size()-1);
     }
     
     // Checks if the stack is empty
