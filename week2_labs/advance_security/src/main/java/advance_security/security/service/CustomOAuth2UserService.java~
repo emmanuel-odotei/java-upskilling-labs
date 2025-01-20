@@ -1,0 +1,29 @@
+package advance_security.security.service;
+
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
+@Service
+public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OidcUser> {
+
+    @Override
+    public OidcUser loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        OidcUser oidcUser = new DefaultOidcUser(
+            userRequest.getAccessToken().getScopes(),
+            userRequest.getClientRegistration()
+        );
+
+        // Extract additional claims
+        Map<String, Object> claims = oidcUser.getClaims();
+        String email = (String) claims.get("email");
+
+        System.out.println("User Email: " + email);
+
+        return oidcUser;
+    }
+}
