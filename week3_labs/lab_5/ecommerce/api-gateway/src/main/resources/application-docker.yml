@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: just-gateway-docker
+  config:
+    import: optional:configserver:http://config-service:8766
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          predicates:
+            - Path=/users/**
+          uri: http://user-service:8763
+        - id: product-service
+          predicates:
+            - Path=/products/**
+          uri: http://product-service:8764
+        - id: order-service
+          predicates:
+            - Path=/orders/**
+          uri: http://order-service:8765
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "http://registry-server:8761/eureka"
+server:
+  port: 8768

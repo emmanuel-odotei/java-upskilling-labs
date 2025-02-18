@@ -1,0 +1,63 @@
+version: "3.0"
+
+services:
+  config-service:
+    image: config-service
+    ports:
+      - "8766:8766"
+    networks:
+      - ecommerce-network
+  registry-server:
+    image: registry-server
+    ports:
+      - "8761:8761"
+    networks:
+      - ecommerce-network
+  user-service:
+    image: user-service
+    environment:
+      - SPRING_CONFIG_IMPORT= configserver:http://config-service:8767
+    ports:
+      - "8763:8763"
+    networks:
+      - ecommerce-network
+    depends_on:
+      - config-service
+      - registry-server
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://config-service:8763/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+networks:
+  ecommerce-network:
+    driver: bridge
+#  product-service:
+#    image: product-service
+#    ports:
+#      - "8764:8764"
+#    networks:
+#      - ecommerce-network
+#    depends_on:
+#      - config-service
+#      - registry-server
+#  order-service:
+#    image: order-service
+#    ports:
+#      - "8765:8765"
+#    networks:
+#      - ecommerce-network
+#    depends_on:
+#      - config-service
+#      - registry-server
+#  api-gateway:
+#    image: api-gateway
+#    ports:
+#      - "8768:8768"
+#    networks:
+#      - ecommerce-network
+#    depends_on:
+#      - config-service
+#      - registry-server
+
+
