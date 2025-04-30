@@ -1,0 +1,4 @@
+package intermediate.week3_labs.lab_5.ecommerce.user;
+
+public record Order(int id, int customerId, int productId, int quantity) {
+}

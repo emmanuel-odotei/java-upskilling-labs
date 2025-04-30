@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:http://localhost:8761
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          predicates:
+            - Path=/users/**
+          uri: http://localhost:8763
+        - id: product-service
+          predicates:
+            - Path=/products/**
+          uri: http://localhost:8764
+        - id: order-service
+          predicates:
+            - Path=/orders/**
+          uri: http://localhost:8765
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "http://localhost:8761/eureka"
+
+server:
+  port: 8768
